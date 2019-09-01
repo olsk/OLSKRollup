@@ -1,0 +1,33 @@
+{
+  "name": "OLSKRollup",
+  "main": "main.js",
+  "devDependencies": {
+    "rollup": "latest",
+    
+    "// SVELTE": null,
+    "svelte": "3.9.0",
+    "rollup-plugin-svelte": "latest",
+    
+    "// NPM MODULES": null,
+    "rollup-plugin-commonjs": "latest",
+    "rollup-plugin-node-resolve": "latest",    
+
+    "// LOCALIZE": null,
+    "olsk-rollup-i18n": "latest",
+
+    "// CSS PREPROCESSING": null,
+    "svelte-preprocess": "latest",
+
+    "// LIVERELOAD": null,
+    "livereload": "latest",
+    "rollup-plugin-livereload": "latest",
+
+    "// MINIFY": null,
+    "rollup-plugin-terser": "latest",
+
+    "// LINT": null,
+    "eslint-plugin-svelte3": "latest",
+
+    "// I sacrifice myself for the commas of others": null    
+  }
+}
