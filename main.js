@@ -1,8 +1,8 @@
-import pathPackage from 'path';
+const pathPackage = require('path');
 
 const production = !process.env.ROLLUP_WATCH;
 
-import autoPreprocess from 'svelte-preprocess';
+const autoPreprocess = require('svelte-preprocess');
 export const OLSKRollupSvelteConfig = function (inputData) {
 	return {
 		// enable run-time checks when not in production
@@ -18,12 +18,12 @@ export const OLSKRollupSvelteConfig = function (inputData) {
 	};
 };
 
-import svelte from 'rollup-plugin-svelte';
-import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
-import i18n from 'olsk-rollup-i18n';
-import livereload from 'rollup-plugin-livereload';
-import { terser } from 'rollup-plugin-terser';
+const svelte = require('rollup-plugin-svelte');
+const resolve = require('rollup-plugin-node-resolve');
+const commonjs = require('rollup-plugin-commonjs');
+const i18n = require('olsk-rollup-i18n');
+const livereload = require('rollup-plugin-livereload');
+const { terser } = require('rollup-plugin-terser');
 export const OLSKRollupDefaultPluginsSvelte = function (inputData, options = {
 	OLSKRollupPluginLivereloadPort: 5000,
 }) {
