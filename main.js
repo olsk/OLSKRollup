@@ -3,7 +3,7 @@ const pathPackage = require('path');
 const production = !process.env.ROLLUP_WATCH;
 
 const autoPreprocess = require('svelte-preprocess');
-export const OLSKRollupSvelteConfig = function (inputData) {
+exports.OLSKRollupSvelteConfig = function (inputData) {
 	return {
 		// enable run-time checks when not in production
 		dev: !production,
@@ -24,12 +24,12 @@ const commonjs = require('rollup-plugin-commonjs');
 const i18n = require('olsk-rollup-i18n');
 const livereload = require('rollup-plugin-livereload');
 const { terser } = require('rollup-plugin-terser');
-export const OLSKRollupDefaultPluginsSvelte = function (inputData, options = {
+exports.OLSKRollupDefaultPluginsSvelte = function (inputData, options = {
 	OLSKRollupPluginLivereloadPort: 5000,
 }) {
 	return [
 		// SVELTE
-		svelte(OLSKRollupSvelteConfig(inputData)),
+		svelte(exports.OLSKRollupSvelteConfig(inputData)),
 
 		// NPM MODULES
 		resolve({
@@ -53,7 +53,7 @@ export const OLSKRollupDefaultPluginsSvelte = function (inputData, options = {
 	];
 };
 
-export const OLSKRollupDefaultConfiguration = function (param1, param2) {
+exports.OLSKRollupDefaultConfiguration = function (param1, param2) {
 	return {
 		input: pathPackage.join(pathPackage.dirname(param1), 'rollup-start.js'),
 		output: {
@@ -71,7 +71,7 @@ export const OLSKRollupDefaultConfiguration = function (param1, param2) {
 	};
 };
 
-export const OLSKRollupScanStart = function (inputData) {
+exports.OLSKRollupScanStart = function (inputData) {
 	return require('glob').sync('os-app/**/rollup-start.js', {
 		cwd: inputData,		
 	}).filter(function (e) {
@@ -89,7 +89,7 @@ export const OLSKRollupScanStart = function (inputData) {
 			}
 		}
 
-		return outputFunction(OLSKRollupDefaultConfiguration(e, OLSKRollupDefaultPluginsSvelte(e, {
+		return outputFunction(exports.OLSKRollupDefaultConfiguration(e, exports.OLSKRollupDefaultPluginsSvelte(e, {
 			OLSKRollupPluginLivereloadPort: 5000 + i,
 		})));
 	});
