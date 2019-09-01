@@ -15,8 +15,8 @@ export const OLSKRollupSvelteConfig = function (inputData) {
 		css: function (css) {
 			return css.write(pathPackage.join(pathPackage.dirname(inputData), '__compiled/ui-style.css'));
 		},
-	}
-}
+	};
+};
 
 import svelte from 'rollup-plugin-svelte';
 import resolve from 'rollup-plugin-node-resolve';
@@ -50,8 +50,8 @@ export const OLSKRollupDefaultPluginsSvelte = function (inputData, options = {
 
 		// MINIFY
 		production && terser()
-	]
-}
+	];
+};
 
 export const OLSKRollupDefaultConfiguration = function (param1, param2) {
 	return {
@@ -69,7 +69,7 @@ export const OLSKRollupDefaultConfiguration = function (param1, param2) {
 		},
 		plugins: param2,
 	};
-}
+};
 
 export const OLSKRollupScanStart = function (inputData) {
 	return require('glob').sync('os-app/**/rollup-start.js', {
@@ -92,5 +92,5 @@ export const OLSKRollupScanStart = function (inputData) {
 		return outputFunction(OLSKRollupDefaultConfiguration(e, OLSKRollupDefaultPluginsSvelte(e, {
 			OLSKRollupPluginLivereloadPort: 5000 + i,
 		})));
-	})
-}
+	});
+};
