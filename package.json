@@ -1,7 +1,7 @@
 {
   "name": "OLSKRollup",
   "main": "main.js",
-  "devDependencies": {
+  "dependencies": {
     "rollup": "latest",
     
     "// SVELTE": null,
