@@ -21,7 +21,7 @@ exports.OLSKRollupSvelteConfig = function (inputData) {
 const svelte = require('rollup-plugin-svelte');
 const resolve = require('rollup-plugin-node-resolve');
 const commonjs = require('rollup-plugin-commonjs');
-const i18n = require('olsk-rollup-i18n');
+const i18n = require('olsk-rollup-plugin-localize');
 const livereload = require('rollup-plugin-livereload');
 const { terser } = require('rollup-plugin-terser');
 exports.OLSKRollupDefaultPluginsSvelte = function (inputData, options = {

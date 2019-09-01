@@ -13,7 +13,7 @@
     "rollup-plugin-node-resolve": "latest",    
 
     "// LOCALIZE": null,
-    "olsk-rollup-i18n": "latest",
+    "olsk-rollup-plugin-localize": "latest",
 
     "// CSS PREPROCESSING": null,
     "svelte-preprocess": "latest",
