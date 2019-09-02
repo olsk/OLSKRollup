@@ -72,7 +72,7 @@ exports.OLSKRollupDefaultConfiguration = function (param1, param2) {
 };
 
 exports.OLSKRollupScanStart = function (inputData) {
-	return require('glob').sync('os-app/**/rollup-start.js', {
+	return require('glob').sync('**/rollup-start.js', {
 		cwd: inputData,		
 	}).filter(function (e) {
 		return !e.match(/node_modules|__external/);
@@ -82,7 +82,7 @@ exports.OLSKRollupScanStart = function (inputData) {
 		};
 
 		try {
-			outputFunction = require(pathPackage.join(__dirname, pathPackage.dirname(e), 'rollup-config-custom.js')).OLSKRollupConfigCustomFor;
+			outputFunction = require(pathPackage.join(inputData, pathPackage.dirname(e), 'rollup-config-custom.js')).OLSKRollupConfigCustomFor;
 		} catch(e) {
 			if (!e.message.match(/Cannot find module .*rollup-config-custom\.js/)) {
 				throw e;
