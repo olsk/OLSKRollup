@@ -5,7 +5,6 @@
     "rollup": "latest",
     
     "// SVELTE": null,
-    "svelte": "3.9.0",
     "rollup-plugin-svelte": "latest",
     
     "// NPM MODULES": null,
