@@ -88,6 +88,6 @@ exports.OLSKRollupScanStart = function (inputData) {
 			return defaultConfiguration;
 		};
 
-		return require(pathPackage.join(options.OLSKRollupDirectory, 'rollup-config-custom.js')).OLSKRollupConfigCustomFor(defaultConfiguration, options);
+		return require(pathPackage.join(options.OLSKRollupDirectory, 'rollup-config-custom.js')).OLSKRollupConfigCustom(defaultConfiguration, options);
 	});
 };
