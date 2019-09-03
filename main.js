@@ -13,7 +13,7 @@ exports.OLSKRollupSvelteConfig = function (inputData) {
 
 		// CSS SEPERATE FILE
 		css: function (css) {
-			return css.write(pathPackage.join(pathPackage.dirname(inputData), '__compiled/ui-style.css'));
+			return css.write(pathPackage.join(inputData.OLSKRollupDirectory, '__compiled/ui-style.css'));
 		},
 	};
 };
@@ -24,7 +24,7 @@ const commonjs = require('rollup-plugin-commonjs');
 const i18n = require('olsk-rollup-plugin-localize');
 const livereload = require('rollup-plugin-livereload');
 const { terser } = require('rollup-plugin-terser');
-exports.OLSKRollupDefaultPluginsSvelte = function (inputData, options = {}) {
+exports.OLSKRollupDefaultPluginsSvelte = function (inputData) {
 	return [
 		// SVELTE
 		svelte(exports.OLSKRollupSvelteConfig(inputData)),
@@ -42,8 +42,8 @@ exports.OLSKRollupDefaultPluginsSvelte = function (inputData, options = {}) {
 
 		// LIVERELOAD
 		!production && livereload({
-			watch: pathPackage.join(pathPackage.dirname(inputData), '__compiled'),
-			port: options.OLSKRollupPluginLivereloadPort,
+			watch: pathPackage.join(inputData.OLSKRollupDirectory, '__compiled'),
+			port: inputData.OLSKRollupPluginLivereloadPort,
 		}),
 
 		// MINIFY
@@ -51,21 +51,20 @@ exports.OLSKRollupDefaultPluginsSvelte = function (inputData, options = {}) {
 	];
 };
 
-exports.OLSKRollupDefaultConfiguration = function (param1, param2) {
+exports.OLSKRollupDefaultConfiguration = function (inputData) {
 	return {
-		input: pathPackage.join(pathPackage.dirname(param1), 'rollup-start.js'),
+		input: pathPackage.join(inputData.OLSKRollupDirectory, 'rollup-start.js'),
 		output: {
 			sourcemap: true,
 			format: 'iife',
 			name: 'Main',
-			file: pathPackage.join(pathPackage.dirname(param1), '__compiled/ui-behaviour.js'),
+			file: pathPackage.join(inputData.OLSKRollupDirectory, '__compiled/ui-behaviour.js'),
 		},
 		onwarn (warning, handler) {
 			if (['a11y-accesskey', 'a11y-autofocus'].indexOf(warning.pluginCode) !== -1) return;
 
 			handler(warning);
 		},
-		plugins: param2,
 	};
 };
 
@@ -76,20 +75,19 @@ exports.OLSKRollupScanStart = function (inputData) {
 	}).filter(function (e) {
 		return !e.match(/node_modules|__external/);
 	}).map(function (e, i) {
-		let rollupDirectory = pathPackage.dirname(e);
-		let pluginLivereloadPort = 5000 + i;
+		const options = {
+			OLSKRollupDirectory: pathPackage.dirname(e),
+			OLSKRollupPluginLivereloadPort: 5000 + i,
+		}
 
-		let defaultConfiguration = exports.OLSKRollupDefaultConfiguration(e, exports.OLSKRollupDefaultPluginsSvelte(e, {
-			OLSKRollupPluginLivereloadPort: pluginLivereloadPort,
-		}));
+		let defaultConfiguration = Object.assign(exports.OLSKRollupDefaultConfiguration(options), {
+			plugins: exports.OLSKRollupDefaultPluginsSvelte(options),
+		});
 
-		if (!require('fs').existsSync(pathPackage.join(rollupDirectory, 'rollup-config-custom.js'))) {
+		if (!require('fs').existsSync(pathPackage.join(options.OLSKRollupDirectory, 'rollup-config-custom.js'))) {
 			return defaultConfiguration;
 		};
 
-		return require(pathPackage.join(rollupDirectory, 'rollup-config-custom.js')).OLSKRollupConfigCustomFor(defaultConfiguration, {
-			OLSKRollupDirectory: rollupDirectory,
-			OLSKRollupPluginLivereloadPort: pluginLivereloadPort,
-		});
+		return require(pathPackage.join(options.OLSKRollupDirectory, 'rollup-config-custom.js')).OLSKRollupConfigCustomFor(defaultConfiguration, options);
 	});
 };
