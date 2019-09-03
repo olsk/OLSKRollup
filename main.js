@@ -72,13 +72,26 @@ exports.OLSKRollupDefaultConfiguration = function (param1, param2) {
 };
 
 exports.OLSKRollupScanStart = function (inputData) {
-	return require('glob').sync('**/rollup-config-custom.js', {
-		cwd: inputData,		
+	return require('glob').sync('**/rollup-start.js', {
+		cwd: inputData,
+		realpath: true,
 	}).filter(function (e) {
 		return !e.match(/node_modules|__external/);
 	}).map(function (e, i) {
-		return require(pathPackage.join(inputData, e)).OLSKRollupConfigCustomFor(exports.OLSKRollupDefaultConfiguration(e, exports.OLSKRollupDefaultPluginsSvelte(e, {
-			OLSKRollupPluginLivereloadPort: 5000 + i,
-		})));
+		let rollupDirectory = pathPackage.dirname(e);
+		let pluginLivereloadPort = 5000 + i;
+
+		let defaultConfiguration = exports.OLSKRollupDefaultConfiguration(e, exports.OLSKRollupDefaultPluginsSvelte(e, {
+			OLSKRollupPluginLivereloadPort: pluginLivereloadPort,
+		}));
+
+		if (!require('fs').existsSync(pathPackage.join(rollupDirectory, 'rollup-config-custom.js'))) {
+			return defaultConfiguration;
+		};
+
+		return require(pathPackage.join(rollupDirectory, 'rollup-config-custom.js')).OLSKRollupConfigCustomFor(defaultConfiguration, {
+			OLSKRollupDirectory: rollupDirectory,
+			OLSKRollupPluginLivereloadPort: pluginLivereloadPort,
+		});
 	});
 };
