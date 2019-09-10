@@ -13,7 +13,7 @@ exports.OLSKRollupSvelteConfig = function (inputData) {
 
 		// CSS SEPERATE FILE
 		css: function (css) {
-			return css.write(pathPackage.join(inputData.OLSKRollupDirectory, '__compiled/ui-style.css'));
+			return css.write(pathPackage.join(inputData.OLSKRollupStartDirectory, '__compiled/ui-style.css'));
 		},
 	};
 };
@@ -42,7 +42,7 @@ exports.OLSKRollupDefaultPluginsSvelte = function (inputData) {
 
 		// LIVERELOAD
 		!production && livereload({
-			watch: pathPackage.join(inputData.OLSKRollupDirectory, '__compiled'),
+			watch: pathPackage.join(inputData.OLSKRollupStartDirectory, '__compiled'),
 			port: inputData.OLSKRollupPluginLivereloadPort,
 		}),
 
@@ -53,12 +53,12 @@ exports.OLSKRollupDefaultPluginsSvelte = function (inputData) {
 
 exports.OLSKRollupDefaultConfiguration = function (inputData) {
 	return {
-		input: pathPackage.join(inputData.OLSKRollupDirectory, 'rollup-start.js'),
+		input: pathPackage.join(inputData.OLSKRollupStartDirectory, 'rollup-start.js'),
 		output: {
 			sourcemap: true,
 			format: 'iife',
 			name: 'Main',
-			file: pathPackage.join(inputData.OLSKRollupDirectory, '__compiled/ui-behaviour.js'),
+			file: pathPackage.join(inputData.OLSKRollupStartDirectory, '__compiled/ui-behaviour.js'),
 		},
 		onwarn (warning, handler) {
 			if (['a11y-accesskey', 'a11y-autofocus'].indexOf(warning.pluginCode) !== -1) return;
@@ -76,7 +76,7 @@ exports.OLSKRollupScanStart = function (inputData) {
 		return !e.match(/node_modules|__external/);
 	}).map(function (e, i) {
 		const options = {
-			OLSKRollupDirectory: pathPackage.dirname(e),
+			OLSKRollupStartDirectory: pathPackage.dirname(e),
 			OLSKRollupPluginLivereloadPort: 5000 + i,
 		}
 
@@ -84,10 +84,10 @@ exports.OLSKRollupScanStart = function (inputData) {
 			plugins: exports.OLSKRollupDefaultPluginsSvelte(options),
 		});
 
-		if (!require('fs').existsSync(pathPackage.join(options.OLSKRollupDirectory, 'rollup-config-custom.js'))) {
+		if (!require('fs').existsSync(pathPackage.join(options.OLSKRollupStartDirectory, 'rollup-config-custom.js'))) {
 			return defaultConfiguration;
 		};
 
-		return require(pathPackage.join(options.OLSKRollupDirectory, 'rollup-config-custom.js')).OLSKRollupConfigCustom(defaultConfiguration, options);
+		return require(pathPackage.join(options.OLSKRollupStartDirectory, 'rollup-config-custom.js')).OLSKRollupConfigCustom(defaultConfiguration, options);
 	});
 };
