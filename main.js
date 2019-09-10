@@ -37,7 +37,7 @@ exports.OLSKRollupDefaultPluginsSvelte = function (inputData) {
 
 		// LOCALIZE
 		i18n({
-			baseDirectory: 'os-app',
+			baseDirectory: inputData._OLSKRollupScanDirectory,
 		}),
 
 		// LIVERELOAD
@@ -76,6 +76,7 @@ exports.OLSKRollupScanStart = function (inputData) {
 		return !e.match(/node_modules|__external/);
 	}).map(function (e, i) {
 		const options = {
+			_OLSKRollupScanDirectory: inputData,
 			OLSKRollupStartDirectory: pathPackage.dirname(e),
 			OLSKRollupPluginLivereloadPort: 5000 + i,
 		}
