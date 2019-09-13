@@ -78,7 +78,7 @@ exports.OLSKRollupScanStart = function (inputData) {
 		const options = {
 			_OLSKRollupScanDirectory: inputData,
 			OLSKRollupStartDirectory: pathPackage.dirname(e),
-			OLSKRollupPluginLivereloadPort: 5000 + i,
+			OLSKRollupPluginLivereloadPort: parseInt(process.env.OLSK_ROLLUP_PLUGIN_LIVERELOAD_PORT || 5000) + i,
 		}
 
 		let defaultConfiguration = Object.assign(exports.OLSKRollupDefaultConfiguration(options), {
