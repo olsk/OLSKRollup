@@ -51,20 +51,36 @@ exports.OLSKRollupDefaultPluginsSvelte = function (inputData) {
 	];
 };
 
+exports._OLSKRollupDefaultConfigurationWarnHandler = function (warning, handler) {
+	if (['a11y-accesskey', 'a11y-autofocus'].indexOf(warning.pluginCode) !== -1) return;
+
+	handler(warning);
+};
+
 exports.OLSKRollupDefaultConfiguration = function (inputData) {
+	if (typeof inputData !== 'object' || inputData === null) {
+		throw 'OLSKErrorInputInvalid';
+	}
+
+	if (typeof inputData.OLSKRollupStartDirectory !== 'string') {
+		throw 'OLSKErrorInputInvalid';
+	};
+
+	let name = require('path').basename(inputData.OLSKRollupStartDirectory);
+
+	if (name.slice(0, 3).match(/[^A-Z]/)) {
+		name = 'Main';
+	};
+	
 	return {
-		input: pathPackage.join(inputData.OLSKRollupStartDirectory, 'rollup-start.js'),
+		input: require('path').join(inputData.OLSKRollupStartDirectory, 'rollup-start.js'),
 		output: {
 			sourcemap: true,
 			format: 'iife',
-			name: 'Main',
-			file: pathPackage.join(inputData.OLSKRollupStartDirectory, '__compiled/ui-behaviour.js'),
+			name,
+			file: require('path').join(inputData.OLSKRollupStartDirectory, '__compiled/ui-behaviour.js'),
 		},
-		onwarn (warning, handler) {
-			if (['a11y-accesskey', 'a11y-autofocus'].indexOf(warning.pluginCode) !== -1) return;
-
-			handler(warning);
-		},
+		onwarn: exports._OLSKRollupDefaultConfigurationWarnHandler,
 	};
 };
 
