@@ -7,7 +7,7 @@ describe('OLSKRollupDefaultConfiguration', function testOLSKRollupDefaultConfigu
 	it('throws error if not object', function() {
 		throws(function() {
 			mainModule.OLSKRollupDefaultConfiguration(null);
-		}, /OLSKErrorInputInvalid/);
+		}, /OLSKErrorInputNotValid/);
 	});
 
 	it('throws error if OLSKRollupStartDirectory not string', function() {
@@ -15,7 +15,7 @@ describe('OLSKRollupDefaultConfiguration', function testOLSKRollupDefaultConfigu
 			mainModule.OLSKRollupDefaultConfiguration({
 				OLSKRollupStartDirectory: null,
 			});
-		}, /OLSKErrorInputInvalid/);
+		}, /OLSKErrorInputNotValid/);
 	});
 
 	it('returns object', function() {
