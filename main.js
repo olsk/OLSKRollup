@@ -59,11 +59,11 @@ exports._OLSKRollupDefaultConfigurationWarnHandler = function (warning, handler)
 
 exports.OLSKRollupDefaultConfiguration = function (inputData) {
 	if (typeof inputData !== 'object' || inputData === null) {
-		throw 'OLSKErrorInputInvalid';
+		throw new Error('OLSKErrorInputInvalid');
 	}
 
 	if (typeof inputData.OLSKRollupStartDirectory !== 'string') {
-		throw 'OLSKErrorInputInvalid';
+		throw new Error('OLSKErrorInputInvalid');
 	};
 
 	let name = require('path').basename(inputData.OLSKRollupStartDirectory);
