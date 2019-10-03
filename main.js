@@ -22,6 +22,7 @@ const svelte = require('rollup-plugin-svelte');
 const resolve = require('rollup-plugin-node-resolve');
 const commonjs = require('rollup-plugin-commonjs');
 const i18n = require('olsk-rollup-plugin-localize');
+const swap = require('olsk-rollup-plugin-swap');
 const livereload = require('rollup-plugin-livereload');
 const { terser } = require('rollup-plugin-terser');
 exports.OLSKRollupDefaultPluginsSvelte = function (inputData) {
@@ -38,6 +39,11 @@ exports.OLSKRollupDefaultPluginsSvelte = function (inputData) {
 		// LOCALIZE
 		i18n({
 			baseDirectory: inputData._OLSKRollupScanDirectory,
+		}),
+
+		// SWAP
+		inputData.OLSKRollupPluginSwapTokens && swap({
+			OLSKRollupPluginSwapTokens: inputData.OLSKRollupPluginSwapTokens,
 		}),
 
 		// LIVERELOAD
@@ -84,18 +90,18 @@ exports.OLSKRollupDefaultConfiguration = function (inputData) {
 	};
 };
 
-exports.OLSKRollupScanStart = function (inputData) {
+exports.OLSKRollupScanStart = function (param1, param2 = {}) {
 	return require('glob').sync('**/rollup-start.js', {
-		cwd: inputData,
+		cwd: param1,
 		realpath: true,
 	}).filter(function (e) {
 		return !e.match(/node_modules|__external/);
 	}).map(function (e, i) {
-		const options = {
-			_OLSKRollupScanDirectory: inputData,
+		const options = Object.assign(param2, {
+			_OLSKRollupScanDirectory: param1,
 			OLSKRollupStartDirectory: pathPackage.dirname(e),
 			OLSKRollupPluginLivereloadPort: parseInt(process.env.OLSK_ROLLUP_PLUGIN_LIVERELOAD_PORT || 5000) + i,
-		}
+		})
 
 		let defaultConfiguration = Object.assign(exports.OLSKRollupDefaultConfiguration(options), {
 			plugins: exports.OLSKRollupDefaultPluginsSvelte(options),
