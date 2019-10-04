@@ -97,7 +97,7 @@ exports.OLSKRollupScanStart = function (param1, param2 = {}) {
 	}).filter(function (e) {
 		return !e.match(/node_modules|__external/);
 	}).map(function (e, i) {
-		const options = Object.assign(param2, {
+		const options = Object.assign(Object.fromEntries(Object.entries(param2)), {
 			_OLSKRollupScanDirectory: param1,
 			OLSKRollupStartDirectory: pathPackage.dirname(e),
 			OLSKRollupPluginLivereloadPort: parseInt(process.env.OLSK_ROLLUP_PLUGIN_LIVERELOAD_PORT || 5000) + i,
