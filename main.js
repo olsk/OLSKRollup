@@ -95,6 +95,10 @@ exports.OLSKRollupScanStart = function (param1, param2 = {}) {
 		cwd: param1,
 		realpath: true,
 	}).filter(function (e) {
+		if (production && require('glob').sync('stub-*', { cwd: pathPackage.dirname(e) }).length) {
+			return false;
+		};
+
 		return !e.match(/node_modules|__external/);
 	}).map(function (e, i) {
 		const options = Object.assign(Object.assign({}, param2), {
