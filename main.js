@@ -95,7 +95,7 @@ exports.OLSKRollupScanStart = function (param1, param2 = {}) {
 		cwd: param1,
 		realpath: true,
 	}).filter(function (e) {
-		if (production && require('glob').sync('stub-*', { cwd: pathPackage.dirname(e) }).length) {
+		if (production && require('glob').sync('stub-*', { cwd: pathPackage.dirname(e) }).length && (!param2.OLSKRollupScanIncludeStubs || !param2.OLSKRollupScanIncludeStubs.includes(e)) ) {
 			return false;
 		};
 
