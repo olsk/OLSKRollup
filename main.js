@@ -18,24 +18,15 @@ exports.OLSKRollupSvelteConfig = function (inputData) {
 	};
 };
 
+const i18n = require('OLSKRollupPluginLocalize');
+const swap = require('OLSKRollupPluginSwap');
 const svelte = require('rollup-plugin-svelte');
 const resolve = require('rollup-plugin-node-resolve');
 const commonjs = require('rollup-plugin-commonjs');
-const i18n = require('OLSKRollupPluginLocalize');
-const swap = require('OLSKRollupPluginSwap');
 const livereload = require('rollup-plugin-livereload');
 const { terser } = require('rollup-plugin-terser');
 exports.OLSKRollupDefaultPluginsSvelte = function (inputData) {
 	return [
-		// SVELTE
-		svelte(exports.OLSKRollupSvelteConfig(inputData)),
-
-		// NPM MODULES
-		resolve({
-			browser: true
-		}),
-		commonjs(),
-
 		// LOCALIZE
 		i18n({
 			baseDirectory: inputData._OLSKRollupScanDirectory,
@@ -45,6 +36,15 @@ exports.OLSKRollupDefaultPluginsSvelte = function (inputData) {
 		inputData.OLSKRollupPluginSwapTokens && swap({
 			OLSKRollupPluginSwapTokens: inputData.OLSKRollupPluginSwapTokens,
 		}),
+
+		// SVELTE
+		svelte(exports.OLSKRollupSvelteConfig(inputData)),
+
+		// NPM MODULES
+		resolve({
+			browser: true
+		}),
+		commonjs(),
 
 		// LIVERELOAD
 		!production && livereload({
