@@ -13,10 +13,10 @@
     "rollup-plugin-node-resolve": "latest",    
 
     "// LOCALIZE": null,
-    "OLSKRollupPluginLocalize": "latest",
+    "OLSKRollupPluginLocalize": "olsk/OLSKRollupPluginLocalize",
 
     "// SWAP": null,
-    "OLSKRollupPluginSwap": "latest",
+    "OLSKRollupPluginSwap": "olsk/OLSKRollupPluginSwap",
 
     "// CSS PREPROCESSING": null,
     "svelte-preprocess": "latest",
