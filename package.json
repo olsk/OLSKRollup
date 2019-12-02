@@ -13,7 +13,7 @@
     "rollup-plugin-node-resolve": "latest",    
 
     "// LOCALIZE": null,
-    "olsk-rollup-plugin-localize": "latest",
+    "OLSKRollupPluginLocalize": "latest",
 
     "// SWAP": null,
     "olsk-rollup-plugin-swap": "latest",
