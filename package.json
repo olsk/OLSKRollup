@@ -16,7 +16,7 @@
     "OLSKRollupPluginLocalize": "latest",
 
     "// SWAP": null,
-    "olsk-rollup-plugin-swap": "latest",
+    "OLSKRollupPluginSwap": "latest",
 
     "// CSS PREPROCESSING": null,
     "svelte-preprocess": "latest",
