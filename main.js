@@ -58,6 +58,10 @@ exports.OLSKRollupDefaultPluginsSvelte = function (inputData) {
 };
 
 exports._OLSKRollupDefaultConfigurationWarnHandler = function (warning, handler) {
+	if (warning.pluginCode === 'a11y-missing-attribute' && warning.frame.includes('role="presentation"')) {
+		return;
+	}
+	
 	if (['a11y-accesskey', 'a11y-autofocus'].indexOf(warning.pluginCode) !== -1) return;
 
 	handler(warning);
