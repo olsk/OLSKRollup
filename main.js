@@ -20,6 +20,7 @@ exports.OLSKRollupSvelteConfig = function (inputData) {
 
 const i18n = require('OLSKRollupPluginLocalize');
 const swap = require('OLSKRollupPluginSwap');
+const svg = require('rollup-plugin-svg-import');
 const svelte = require('rollup-plugin-svelte');
 const resolve = require('rollup-plugin-node-resolve');
 const commonjs = require('rollup-plugin-commonjs');
@@ -36,6 +37,9 @@ exports.OLSKRollupDefaultPluginsSvelte = function (inputData) {
 		inputData.OLSKRollupPluginSwapTokens && swap({
 			OLSKRollupPluginSwapTokens: inputData.OLSKRollupPluginSwapTokens,
 		}),
+
+		// SVG
+		svg({ stringify: true }),
 
 		// SVELTE
 		svelte(exports.OLSKRollupSvelteConfig(inputData)),

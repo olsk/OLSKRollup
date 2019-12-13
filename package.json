@@ -18,6 +18,9 @@
     "// SWAP": null,
     "OLSKRollupPluginSwap": "olsk/OLSKRollupPluginSwap",
 
+    "// SVG IMPORT": null,
+    "rollup-plugin-svg-import": "latest",
+
     "// CSS PREPROCESSING": null,
     "svelte-preprocess": "latest",
 
