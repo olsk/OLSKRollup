@@ -34,6 +34,9 @@
     "// LINT": null,
     "eslint-plugin-svelte3": "latest",
 
+    "// FILE ACCESS": null,
+    "glob": "latest",
+
     "// I sacrifice myself for the commas of others": null    
   }
 }
