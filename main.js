@@ -1,128 +1,123 @@
-const pathPackage = require('path');
+const mod = {
 
-const production = !process.env.ROLLUP_WATCH;
+	_ValueProduction: !process.env.ROLLUP_WATCH,
 
-const autoPreprocess = require('svelte-preprocess');
-exports.OLSKRollupSvelteConfig = function (inputData) {
-	return {
-		// enable run-time checks when not in production
-		dev: !production,
+	OLSKRollupSvelteConfig (inputData) {
+		return {
+			// enable run-time checks when not in production
+			dev: !mod._ValueProduction,
 
-		// CSS PREPROCESSING
-		preprocess: autoPreprocess({ /* options */ }),
+			// CSS PREPROCESSING
+			preprocess: require('svelte-preprocess')({ /* options */ }),
 
-		// CSS SEPERATE FILE
-		css: function (css) {
-			return css.write(pathPackage.join(inputData.OLSKRollupStartDirectory, '__compiled/ui-style.css'));
-		},
-	};
-};
+			// CSS SEPERATE FILE
+			css: function (css) {
+				return css.write(require('path').join(inputData.OLSKRollupStartDirectory, '__compiled/ui-style.css'));
+			},
+		};
+	},
 
-const i18n = require('OLSKRollupPluginLocalize');
-const swap = require('OLSKRollupPluginSwap');
-const svg = require('rollup-plugin-svg-import');
-const svelte = require('rollup-plugin-svelte');
-const resolve = require('rollup-plugin-node-resolve');
-const commonjs = require('rollup-plugin-commonjs');
-const livereload = require('rollup-plugin-livereload');
-const { terser } = require('rollup-plugin-terser');
-exports.OLSKRollupDefaultPluginsSvelte = function (inputData) {
-	return [
-		// LOCALIZE
-		i18n({
-			baseDirectory: inputData._OLSKRollupScanDirectory,
-		}),
+	OLSKRollupDefaultPluginsSvelte (inputData) {
+		return [
+			// LOCALIZE
+			require('OLSKRollupPluginLocalize')({
+				baseDirectory: inputData._OLSKRollupScanDirectory,
+			}),
 
-		// SWAP
-		inputData.OLSKRollupPluginSwapTokens && swap({
-			OLSKRollupPluginSwapTokens: inputData.OLSKRollupPluginSwapTokens,
-		}),
+			// SWAP
+			inputData.OLSKRollupPluginSwapTokens && require('OLSKRollupPluginSwap')({
+				OLSKRollupPluginSwapTokens: inputData.OLSKRollupPluginSwapTokens,
+			}),
 
-		// SVG
-		svg({ stringify: true }),
+			// SVG
+			require('rollup-plugin-svg-import')({ stringify: true }),
 
-		// SVELTE
-		svelte(exports.OLSKRollupSvelteConfig(inputData)),
+			// SVELTE
+			require('rollup-plugin-svelte')(exports.OLSKRollupSvelteConfig(inputData)),
 
-		// NPM MODULES
-		resolve({
-			browser: true
-		}),
-		commonjs(),
+			// NPM MODULES
+			require('rollup-plugin-node-resolve')({
+				browser: true
+			}),
+			require('rollup-plugin-commonjs')(),
 
-		// LIVERELOAD
-		!production && livereload({
-			watch: pathPackage.join(inputData.OLSKRollupStartDirectory, '__compiled'),
-			port: inputData.OLSKRollupPluginLivereloadPort,
-		}),
+			// LIVERELOAD
+			!mod._ValueProduction && require('rollup-plugin-livereload')({
+				watch: require('path').join(inputData.OLSKRollupStartDirectory, '__compiled'),
+				port: inputData.OLSKRollupPluginLivereloadPort,
+			}),
 
-		// MINIFY
-		production && terser()
-	];
-};
+			// MINIFY
+			mod._ValueProduction && require('rollup-plugin-terser').terser(),
+		];
+	},
 
-exports._OLSKRollupDefaultConfigurationWarnHandler = function (warning, handler) {
-	if (warning.pluginCode === 'a11y-missing-attribute' && warning.frame.includes('role="presentation"')) {
-		return;
-	}
-	
-	if (['a11y-accesskey', 'a11y-autofocus'].indexOf(warning.pluginCode) !== -1) return;
+	_OLSKRollupDefaultConfigurationWarnHandler (warning, handler) {
+		if (warning.pluginCode === 'a11y-missing-attribute' && warning.frame.includes('role="presentation"')) {
+			return;
+		}
+		
+		if (['a11y-accesskey', 'a11y-autofocus'].indexOf(warning.pluginCode) !== -1) return;
 
-	handler(warning);
-};
+		handler(warning);
+	},
 
-exports.OLSKRollupDefaultConfiguration = function (inputData) {
-	if (typeof inputData !== 'object' || inputData === null) {
-		throw new Error('OLSKErrorInputNotValid');
-	}
+	OLSKRollupDefaultConfiguration (inputData) {
+		if (typeof inputData !== 'object' || inputData === null) {
+			throw new Error('OLSKErrorInputNotValid');
+		}
 
-	if (typeof inputData.OLSKRollupStartDirectory !== 'string') {
-		throw new Error('OLSKErrorInputNotValid');
-	};
-
-	let name = require('path').basename(inputData.OLSKRollupStartDirectory);
-
-	if (name.slice(0, 3).match(/[^A-Z]/)) {
-		name = 'Main';
-	};
-	
-	return {
-		input: require('path').join(inputData.OLSKRollupStartDirectory, 'rollup-start.js'),
-		output: {
-			sourcemap: true,
-			format: 'iife',
-			name,
-			file: require('path').join(inputData.OLSKRollupStartDirectory, '__compiled/ui-behaviour.js'),
-		},
-		onwarn: exports._OLSKRollupDefaultConfigurationWarnHandler,
-	};
-};
-
-exports.OLSKRollupScanStart = function (param1, param2 = {}) {
-	return require('glob').sync('**/rollup-start.js', {
-		cwd: param1,
-		realpath: true,
-	}).filter(function (e) {
-		if (production && require('glob').sync('stub-*', { cwd: pathPackage.dirname(e) }).length && (!param2.OLSKRollupScanIncludeStubs || !param2.OLSKRollupScanIncludeStubs.includes(e)) ) {
-			return false;
+		if (typeof inputData.OLSKRollupStartDirectory !== 'string') {
+			throw new Error('OLSKErrorInputNotValid');
 		};
 
-		return !e.match(/node_modules|__external/);
-	}).map(function (e, i) {
-		const options = Object.assign(Object.assign({}, param2), {
-			_OLSKRollupScanDirectory: param1,
-			OLSKRollupStartDirectory: pathPackage.dirname(e),
-			OLSKRollupPluginLivereloadPort: parseInt(process.env.OLSK_ROLLUP_PLUGIN_LIVERELOAD_PORT || 5000) + i,
-		});
+		let name = require('path').basename(inputData.OLSKRollupStartDirectory);
 
-		let defaultConfiguration = Object.assign(exports.OLSKRollupDefaultConfiguration(options), {
-			plugins: exports.OLSKRollupDefaultPluginsSvelte(options),
-		});
-
-		if (!require('fs').existsSync(pathPackage.join(options.OLSKRollupStartDirectory, 'rollup-config-custom.js'))) {
-			return defaultConfiguration;
+		if (name.slice(0, 3).match(/[^A-Z]/)) {
+			name = 'Main';
 		};
+		
+		return {
+			input: require('path').join(inputData.OLSKRollupStartDirectory, 'rollup-start.js'),
+			output: {
+				sourcemap: true,
+				format: 'iife',
+				name,
+				file: require('path').join(inputData.OLSKRollupStartDirectory, '__compiled/ui-behaviour.js'),
+			},
+			onwarn: mod._OLSKRollupDefaultConfigurationWarnHandler,
+		};
+	},
 
-		return require(pathPackage.join(options.OLSKRollupStartDirectory, 'rollup-config-custom.js')).OLSKRollupConfigCustom(defaultConfiguration, options);
-	});
+	OLSKRollupScanStart (param1, param2 = {}) {
+		return require('glob').sync('**/rollup-start.js', {
+			cwd: param1,
+			realpath: true,
+		}).filter(function (e) {
+			if (mod._ValueProduction && require('glob').sync('stub-*', { cwd: require('path').dirname(e) }).length && (!param2.OLSKRollupScanIncludeStubs || !param2.OLSKRollupScanIncludeStubs.includes(e)) ) {
+				return false;
+			};
+
+			return !e.match(/node_modules|__external/);
+		}).map(function (e, i) {
+			const options = Object.assign(Object.assign({}, param2), {
+				_OLSKRollupScanDirectory: param1,
+				OLSKRollupStartDirectory: require('path').dirname(e),
+				OLSKRollupPluginLivereloadPort: parseInt(process.env.OLSK_ROLLUP_PLUGIN_LIVERELOAD_PORT || 5000) + i,
+			});
+
+			let defaultConfiguration = Object.assign(exports.OLSKRollupDefaultConfiguration(options), {
+				plugins: exports.OLSKRollupDefaultPluginsSvelte(options),
+			});
+
+			if (!require('fs').existsSync(require('path').join(options.OLSKRollupStartDirectory, 'rollup-config-custom.js'))) {
+				return defaultConfiguration;
+			};
+
+			return require(require('path').join(options.OLSKRollupStartDirectory, 'rollup-config-custom.js')).OLSKRollupConfigCustom(defaultConfiguration, options);
+		});
+	},
+
 };
+
+Object.assign(exports, mod);
