@@ -69,13 +69,13 @@ const mod = {
 
 		if (typeof inputData.OLSKRollupStartDirectory !== 'string') {
 			throw new Error('OLSKErrorInputNotValid');
-		};
+		}
 
 		let name = require('path').basename(inputData.OLSKRollupStartDirectory);
 
 		if (name.slice(0, 3).match(/[^A-Z]/)) {
 			name = 'Main';
-		};
+		}
 		
 		return {
 			input: require('path').join(inputData.OLSKRollupStartDirectory, 'rollup-start.js'),
@@ -96,7 +96,7 @@ const mod = {
 		}).filter(function (e) {
 			if (mod._ValueProduction && require('glob').sync('stub-*', { cwd: require('path').dirname(e) }).length && (!param2.OLSKRollupScanIncludeStubs || !param2.OLSKRollupScanIncludeStubs.includes(e)) ) {
 				return false;
-			};
+			}
 
 			return !e.match(/node_modules|__external/);
 		}).map(function (e, i) {
@@ -112,7 +112,7 @@ const mod = {
 
 			if (!require('fs').existsSync(require('path').join(options.OLSKRollupStartDirectory, 'rollup-config-custom.js'))) {
 				return defaultConfiguration;
-			};
+			}
 
 			return require(require('path').join(options.OLSKRollupStartDirectory, 'rollup-config-custom.js')).OLSKRollupConfigCustom(defaultConfiguration, options);
 		});
