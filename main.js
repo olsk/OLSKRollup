@@ -17,7 +17,7 @@ const mod = {
 		};
 	},
 
-	OLSKRollupDefaultPluginsSvelte (inputData) {
+	OLSKRollupScaffoldDefaultPluginsSvelte (inputData) {
 		return [
 			// LOCALIZE
 			require('OLSKRollupPluginLocalize')({
@@ -107,7 +107,7 @@ const mod = {
 			});
 
 			let defaultConfiguration = Object.assign(exports.OLSKRollupDefaultConfiguration(options), {
-				plugins: exports.OLSKRollupDefaultPluginsSvelte(options),
+				plugins: exports.OLSKRollupScaffoldDefaultPluginsSvelte(options),
 			});
 
 			if (!require('fs').existsSync(require('path').join(options.OLSKRollupStartDirectory, 'rollup-config-custom.js'))) {
