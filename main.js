@@ -52,7 +52,7 @@ const mod = {
 		];
 	},
 
-	_OLSKRollupDefaultConfigurationWarnHandler (warning, handler) {
+	_OLSKRollupScaffoldDefaultConfigurationWarnHandler (warning, handler) {
 		if (warning.pluginCode === 'a11y-missing-attribute' && warning.frame.includes('role="presentation"')) {
 			return;
 		}
@@ -85,7 +85,7 @@ const mod = {
 				name,
 				file: require('path').join(inputData.OLSKRollupStartDirectory, '__compiled/ui-behaviour.js'),
 			},
-			onwarn: mod._OLSKRollupDefaultConfigurationWarnHandler,
+			onwarn: mod._OLSKRollupScaffoldDefaultConfigurationWarnHandler,
 		};
 	},
 

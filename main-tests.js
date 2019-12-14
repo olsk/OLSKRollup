@@ -29,7 +29,7 @@ describe('OLSKRollupDefaultConfiguration', function testOLSKRollupDefaultConfigu
 				name: 'Main',
 				file: 'alfa/bravo/__compiled/ui-behaviour.js',
 			},
-			onwarn: mainModule._OLSKRollupDefaultConfigurationWarnHandler,
+			onwarn: mainModule._OLSKRollupScaffoldDefaultConfigurationWarnHandler,
 		});
 	});
 
