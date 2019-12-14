@@ -62,7 +62,7 @@ const mod = {
 		handler(warning);
 	},
 
-	OLSKRollupDefaultConfiguration (inputData) {
+	OLSKRollupScaffoldDefaultConfiguration (inputData) {
 		if (typeof inputData !== 'object' || inputData === null) {
 			throw new Error('OLSKErrorInputNotValid');
 		}
@@ -106,7 +106,7 @@ const mod = {
 				OLSKRollupPluginLivereloadPort: parseInt(process.env.OLSK_ROLLUP_PLUGIN_LIVERELOAD_PORT || 5000) + i,
 			});
 
-			let defaultConfiguration = Object.assign(exports.OLSKRollupDefaultConfiguration(options), {
+			let defaultConfiguration = Object.assign(exports.OLSKRollupScaffoldDefaultConfiguration(options), {
 				plugins: exports.OLSKRollupScaffoldDefaultPluginsSvelte(options),
 			});
 
