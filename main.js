@@ -2,7 +2,7 @@ const mod = {
 
 	_ValueProduction: !process.env.ROLLUP_WATCH,
 
-	OLSKRollupSvelteConfig (inputData) {
+	OLSKRollupScaffoldSvelteConfig (inputData) {
 		return {
 			// enable run-time checks when not in production
 			dev: !mod._ValueProduction,
@@ -33,7 +33,7 @@ const mod = {
 			require('rollup-plugin-svg-import')({ stringify: true }),
 
 			// SVELTE
-			require('rollup-plugin-svelte')(exports.OLSKRollupSvelteConfig(inputData)),
+			require('rollup-plugin-svelte')(exports.OLSKRollupScaffoldSvelteConfig(inputData)),
 
 			// NPM MODULES
 			require('rollup-plugin-node-resolve')({
