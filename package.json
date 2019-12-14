@@ -1,5 +1,5 @@
 {
-  "name": "OLSKRollup",
+  "name": "OLSKRollupScaffold",
   "main": "main.js",
   "dependencies": {
     "rollup": "latest",
