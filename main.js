@@ -89,7 +89,7 @@ const mod = {
 		};
 	},
 
-	OLSKRollupScanStart (param1, param2 = {}) {
+	OLSKRollupScaffoldScanStart (param1, param2 = {}) {
 		return require('glob').sync('**/rollup-start.js', {
 			cwd: param1,
 			realpath: true,
