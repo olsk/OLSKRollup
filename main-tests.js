@@ -2,7 +2,7 @@ const { throws, deepEqual } = require('assert');
 
 const mainModule = require('./main');
 
-describe('OLSKRollupScaffoldDefaultConfiguration', function testOLSKRollupScaffoldDefaultConfiguration() {
+describe('OLSKRollupScaffoldDefaultConfiguration', function test_OLSKRollupScaffoldDefaultConfiguration() {
 
 	it('throws error if not object', function() {
 		throws(function() {
