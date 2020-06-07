@@ -23,6 +23,7 @@
 
     "// CSS PREPROCESSING": null,
     "svelte-preprocess": "latest",
+    "postcss": "latest",
 
     "// LIVERELOAD": null,
     "livereload": "latest",
