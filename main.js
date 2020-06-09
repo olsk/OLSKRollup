@@ -57,7 +57,7 @@ const mod = {
 			return;
 		}
 		
-		if (['a11y-accesskey', 'a11y-autofocus'].indexOf(warning.pluginCode) !== -1) return;
+		if (['a11y-accesskey', 'a11y-autofocus'].includes(warning.pluginCode)) return;
 
 		handler(warning);
 	},
