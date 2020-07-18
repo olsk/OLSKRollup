@@ -13,9 +13,19 @@ const mod = {
 	// CONTROL
 
 	ControlScanStart(args, watch) {
-		const configPath = require('path').join(process.cwd(), '__compiled/rollup-config.js');
-		
-		uWriteFile(configPath, `const OLSKRollupScaffold = require('OLSKRollupScaffold');\n\nexport default OLSKRollupScaffold.OLSKRollupScaffoldScanStart(process.cwd());`);
+		const configPath = (function() {
+			const custom = require('path').join(process.cwd(), 'rollup-config.js');
+
+			if (require('fs').existsSync(custom)) {
+				return custom;
+			}
+
+			const compiled = require('path').join(process.cwd(), '__compiled/rollup-config.js');
+					
+			uWriteFile(compiled, `const OLSKRollupScaffold = require('OLSKRollupScaffold');\n\nexport default OLSKRollupScaffold.OLSKRollupScaffoldScanStart(process.cwd());`);
+
+			return compiled;
+		})();
 
 		require('child_process').spawn('rollup', [].concat.apply([], [
 			watch ? ['-w'] : [],
