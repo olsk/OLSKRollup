@@ -30,7 +30,6 @@ const mod = {
 			});
 	},
 
-
 	// LIFECYCLE
 
 	LifecycleScriptDidLoad() {
