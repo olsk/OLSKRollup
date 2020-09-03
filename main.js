@@ -12,7 +12,7 @@ const mod = {
 
 			// CSS SEPERATE FILE
 			css: function (css) {
-				return css.write(require('path').join(inputData.OLSKRollupStartDirectory, '__compiled/ui-style.css'));
+				return css.write('ui-style.css');
 			},
 		};
 	},
