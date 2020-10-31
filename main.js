@@ -33,7 +33,7 @@ const mod = {
 			require('rollup-plugin-svg-import')({ stringify: true }),
 
 			// SVELTE
-			require('rollup-plugin-svelte')(exports.OLSKRollupScaffoldSvelteConfig(inputData)),
+			require('rollup-plugin-svelte')(mod.OLSKRollupScaffoldSvelteConfig(inputData)),
 
 			// NPM MODULES
 			require('rollup-plugin-node-resolve')({
@@ -106,8 +106,8 @@ const mod = {
 				OLSKRollupPluginLivereloadPort: parseInt(process.env.OLSK_ROLLUP_PLUGIN_LIVERELOAD_PORT || 5000) + i,
 			});
 
-			let defaultConfiguration = Object.assign(exports.OLSKRollupScaffoldDefaultConfiguration(options), {
-				plugins: exports.OLSKRollupScaffoldDefaultPluginsSvelte(options),
+			let defaultConfiguration = Object.assign(mod.OLSKRollupScaffoldDefaultConfiguration(options), {
+				plugins: mod.OLSKRollupScaffoldDefaultPluginsSvelte(options),
 			});
 
 			if (!require('fs').existsSync(require('path').join(options.OLSKRollupStartDirectory, 'rollup-config-custom.js'))) {
