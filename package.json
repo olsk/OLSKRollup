@@ -44,6 +44,9 @@
     "// FILE ACCESS": null,
     "glob": "latest",
 
+    "// ENV GUARD": null,
+    "OLSKEnv": "olsk/OLSKEnv",
+    
     "// I sacrifice myself for the commas of others": null    
   }
 }

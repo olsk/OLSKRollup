@@ -1,3 +1,5 @@
+require('OLSKEnv').OLSKEnvGuard();
+
 const mod = {
 
 	_ValueProduction: !process.env.ROLLUP_WATCH,
