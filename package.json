@@ -1,7 +1,6 @@
 {
   "name": "OLSKRollupScaffold",
   "main": "main.js",
-  "version": "0.0.1",
   "bin": {
     "olsk-rollup-build": "./package-bin.js",
     "olsk-rollup-watch": "./package-bin.js",
