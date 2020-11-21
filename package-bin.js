@@ -22,7 +22,7 @@ const mod = {
 
 			const compiled = require('path').join(process.cwd(), '__compiled/rollup-config.js');
 					
-			uWriteFile(compiled, `const OLSKRollupScaffold = require('OLSKRollupScaffold');\n\nexport default OLSKRollupScaffold.OLSKRollupScaffoldScanStart(process.cwd());`);
+			uWriteFile(compiled, `const OLSKRollupScaffold = require('${ require('path').join(__dirname, 'main.js') }');\n\nexport default OLSKRollupScaffold.OLSKRollupScaffoldScanStart(process.cwd());`);
 
 			return compiled;
 		})();
