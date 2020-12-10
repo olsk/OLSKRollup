@@ -1,25 +1,25 @@
 const { throws, deepEqual } = require('assert');
 
-const mainModule = require('./main');
+const mod = require('./main');
 
 describe('OLSKRollupScaffoldDefaultConfiguration', function test_OLSKRollupScaffoldDefaultConfiguration() {
 
 	it('throws error if not object', function() {
 		throws(function() {
-			mainModule.OLSKRollupScaffoldDefaultConfiguration(null);
+			mod.OLSKRollupScaffoldDefaultConfiguration(null);
 		}, /OLSKErrorInputNotValid/);
 	});
 
 	it('throws error if OLSKRollupStartDirectory not string', function() {
 		throws(function() {
-			mainModule.OLSKRollupScaffoldDefaultConfiguration({
+			mod.OLSKRollupScaffoldDefaultConfiguration({
 				OLSKRollupStartDirectory: null,
 			});
 		}, /OLSKErrorInputNotValid/);
 	});
 
 	it('returns object', function() {
-		deepEqual(mainModule.OLSKRollupScaffoldDefaultConfiguration({
+		deepEqual(mod.OLSKRollupScaffoldDefaultConfiguration({
 			OLSKRollupStartDirectory: 'alfa/bravo',
 		}), {
 			input: 'alfa/bravo/rollup-start.js',
@@ -29,12 +29,12 @@ describe('OLSKRollupScaffoldDefaultConfiguration', function test_OLSKRollupScaff
 				name: 'Main',
 				file: 'alfa/bravo/__compiled/ui-behaviour.js',
 			},
-			onwarn: mainModule._OLSKRollupScaffoldDefaultConfigurationWarnHandler,
+			onwarn: mod._OLSKRollupScaffoldDefaultConfigurationWarnHandler,
 		});
 	});
 
 	it('returns object', function() {
-		deepEqual(mainModule.OLSKRollupScaffoldDefaultConfiguration({
+		deepEqual(mod.OLSKRollupScaffoldDefaultConfiguration({
 			OLSKRollupStartDirectory: 'alfa/XYZBravo',
 		}).output.name, 'XYZBravo');
 	});
