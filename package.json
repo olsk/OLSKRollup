@@ -29,10 +29,6 @@
     "svelte-preprocess": "latest",
     "postcss": "latest",
 
-    "// LIVERELOAD": null,
-    "livereload": "latest",
-    "rollup-plugin-livereload": "1.1.0",
-
     "// MINIFY": null,
     "rollup-plugin-terser": "latest",
 

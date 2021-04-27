@@ -43,12 +43,6 @@ const mod = {
 			}),
 			require('rollup-plugin-commonjs')(),
 
-			// LIVERELOAD
-			!mod._ValueProduction && require('rollup-plugin-livereload')({
-				watch: require('path').join(inputData.OLSKRollupStartDirectory, '__compiled'),
-				port: inputData.OLSKRollupPluginLivereloadPort,
-			}),
-
 			// MINIFY
 			mod._ValueProduction && require('rollup-plugin-terser').terser(),
 		];
@@ -105,7 +99,6 @@ const mod = {
 			const options = Object.assign(Object.assign({}, param2), {
 				_OLSKRollupScanDirectory: param1,
 				OLSKRollupStartDirectory: require('path').dirname(e),
-				OLSKRollupPluginLivereloadPort: parseInt(process.env.OLSK_ROLLUP_PLUGIN_LIVERELOAD_PORT || 5000) + i,
 			});
 
 			let defaultConfiguration = Object.assign(mod.OLSKRollupScaffoldDefaultConfiguration(options), {
