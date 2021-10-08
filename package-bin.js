@@ -37,6 +37,9 @@ const mod = {
 
 			]), {
 				stdio: 'inherit',
+				env: Object.assign(process.env, {
+					OLSK_ROLLUP_SCAFFOLD_CI: args.includes('--ci'),
+				}),
 			});
 	},
 
