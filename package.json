@@ -8,37 +8,37 @@
   "dependencies": {
     "rollup": "latest",
     
-    "// SVELTE": null,
+    "//": "SVELTE",
     "svelte": "latest",
     "rollup-plugin-svelte": "6.x",
     
-    "// NPM MODULES": null,
+    "//": "NPM MODULES",
     "rollup-plugin-commonjs": "latest",
     "rollup-plugin-node-resolve": "latest",    
 
-    "// LOCALIZE": null,
+    "//": "LOCALIZE",
     "OLSKRollupPluginLocalize": "olsk/OLSKRollupPluginLocalize",
 
-    "// SWAP": null,
+    "//": "SWAP",
     "OLSKRollupPluginSwap": "olsk/OLSKRollupPluginSwap",
 
-    "// SVG IMPORT": null,
+    "//": "SVG IMPORT",
     "rollup-plugin-svg-import": "latest",
 
-    "// CSS PREPROCESSING": null,
+    "//": "CSS PREPROCESSING",
     "svelte-preprocess": "latest",
     "postcss": "latest",
 
-    "// MINIFY": null,
+    "//": "MINIFY",
     "rollup-plugin-terser": "latest",
 
-    "// LINT": null,
+    "//": "LINT",
     "eslint-plugin-svelte3": "latest",
 
-    "// FILE ACCESS": null,
+    "//": "FILE ACCESS",
     "glob": "latest",
 
-    "// ENV GUARD": null,
+    "//": "ENV GUARD",
     "OLSKEnv": "olsk/OLSKEnv",
     
     "//": "I sacrifice myself for the commas of others"
