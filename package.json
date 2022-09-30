@@ -39,8 +39,6 @@
     "glob": "latest",
 
     "//": "ENV GUARD",
-    "OLSKEnv": "olsk/OLSKEnv",
-    
-    "//": "I sacrifice myself for the commas of others"
+    "OLSKEnv": "olsk/OLSKEnv"
   }
 }
