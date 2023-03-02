@@ -18,7 +18,7 @@
 
     "OLSKRollupPluginSwap": "olsk/OLSKRollupPluginSwap",
 
-    "rollup-plugin-svg-import": "latest",
+    "rollup-plugin-svg-import": "1.x",
 
     "svelte-preprocess": "latest",
     "postcss": "latest",
