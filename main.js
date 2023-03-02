@@ -86,11 +86,11 @@ const mod = {
 	},
 
 	OLSKRollupScaffoldScanStart (param1, param2 = {}) {
-		return require('glob').sync('**/rollup-start.js', {
+		return require('glob').globSync('**/rollup-start.js', {
 			cwd: param1,
 			realpath: true,
 		}).filter(function (e) {
-			if (mod._ValueProduction && !process.env.OLSK_ROLLUP_SCAFFOLD_CI && require('glob').sync('stub-*', { cwd: require('path').dirname(e) }).length && (!param2.OLSKRollupScanIncludeStubs || !param2.OLSKRollupScanIncludeStubs.includes(e)) ) {
+			if (mod._ValueProduction && !process.env.OLSK_ROLLUP_SCAFFOLD_CI && require('glob').globSync('stub-*', { cwd: require('path').dirname(e) }).length && (!param2.OLSKRollupScanIncludeStubs || !param2.OLSKRollupScanIncludeStubs.includes(e)) ) {
 				return false;
 			}
 
