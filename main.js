@@ -109,7 +109,7 @@ const mod = {
 				return defaultConfiguration;
 			}
 
-			return require(require('path').join(options.OLSKRollupStartDirectory, 'rollup-config-custom.js')).OLSKRollupConfigCustom(defaultConfiguration, options);
+			return require(require('path').join(options._OLSKRollupScanDirectory, options.OLSKRollupStartDirectory, 'rollup-config-custom.js')).OLSKRollupConfigCustom(defaultConfiguration, options);
 		});
 	},
 
